@@ -1,0 +1,27 @@
+function onOpen() {
+  DocumentApp.getUi().createMenu('Custom Menu')
+      .addItem('Open Sidebar', 'showSidebar')
+      .addToUi();
+}
+
+function showSidebar() {
+  const html = HtmlService.createHtmlOutputFromFile('Sidebar')
+      .setTitle('Prefix Text with Username and Date');
+  DocumentApp.getUi().showSidebar(html);
+}
+
+function prefixText() {
+  const doc = DocumentApp.getActiveDocument();
+  const body = doc.getBody();
+  const userEmail = Session.getActiveUser().getEmail();
+  const currentDate = new Date().toLocaleDateString();
+  const paragraphs = body.getParagraphs();
+
+  for (let i = 0; i < paragraphs.length; i++) {
+    const text = paragraphs[i].getText();
+    // Check if the paragraph already has the prefix
+    if (!text.startsWith(userEmail + ' [' + currentDate + ']: ')) {
+      paragraphs[i].setText(userEmail + ' [' + currentDate + ']: ' + text);
+    }
+  }
+}
