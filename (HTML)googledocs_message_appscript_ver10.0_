@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <script>
+      function addPrefix() {
+        google.script.run.prefixText();
+      }
+    </script>
+  </head>
+  <body>
+    <div>
+      <button onclick="addPrefix()">New Message</button>
+    </div>
+  </body>
+</html>
